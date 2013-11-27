@@ -1,0 +1,38 @@
+.filehost_upload {
+  padding: .5em;
+  width: auto;
+  min-height: 25em;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+.filehost_upload.state_allowed {
+  background: #eeffee;
+}
+.filehost_upload.state_disallowed {
+  background: #ffeeee;
+}
+.filehost_upload input[type=file] {
+  text-align: right;
+  width: 8em;
+  padding-top: .5em;
+}
+.filehost_upload button {
+  display: none;
+  margin: 0 auto; 
+  padding: .5em;
+}
+.filehost_upload.state_enabled input[type=file] {
+  display: none;
+}
+.filehost_upload.state_enabled button {
+  display: inline-block;
+}
+
+.filehost_upload .filehost_filelist {
+  margin-left: 10.5em;
+}
+@media all and (max-device-width: 800px) {
+  .filehost_upload .filehost_filelist {
+    margin-left: 0;
+  }
+}

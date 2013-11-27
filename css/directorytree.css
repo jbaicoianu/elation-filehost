@@ -1,0 +1,28 @@
+.filehost_directorytree {
+  width: 10em;
+  min-height: 10em;
+  left: .5em;
+  background: rgba(0,0,0,.4);
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  position: fixed;
+}
+.filehost_directorytree .ui_treeview>ul>li:before {
+  content: '/';
+  padding-left: .5em;
+  padding-right: .1em;
+}
+.filehost_directorytree .ui_treeview>ul>li:first-child:before,
+.filehost_directorytree .ui_treeview>ul>li:last-child:before,
+.filehost_directorytree .ui_treeview>ul>li:first-child:last-child:before {
+  content: '/';
+}
+@media all and (max-device-width: 800px) {
+  .filehost_directorytree {
+    width: 0;
+    overflow: hidden;
+    left: 0;
+  }
+}

@@ -1,0 +1,25 @@
+.filehost_filelist .ui_list .filehost_file .filehost_file_info h2,
+.filehost_filelist .ui_list .filehost_file .filehost_file_metadata_filetype,
+.filehost_filelist .ui_list .filehost_file .filehost_file_metadata_filesize,
+.filehost_filelist .ui_list .filehost_file .filehost_file_metadata_modified_time {
+  text-shadow: 0px 0px 0px #000;
+}
+.filehost_filelist .ui_list .filehost_file .filehost_file_info h2:hover {
+  text-shadow: 0px 0px 6px #0f0;
+}
+.filehost_filelist .ui_list.ui_list_sortby_filename .filehost_file .filehost_file_info h2 {
+  font-weight: bold;
+  text-shadow: 0px 0px 6px #0f0;
+}
+.filehost_filelist .ui_list.ui_list_sortby_filetype .filehost_file .filehost_file_metadata_filetype {
+  text-shadow: 0px 0px 6px #0f0;
+  font-weight: bold;
+}
+.filehost_filelist .ui_list.ui_list_sortby_filesize .filehost_file .filehost_file_metadata_filesize {
+  text-shadow: 0px 0px 6px #0f0;
+  font-weight: bold;
+}
+.filehost_filelist .ui_list.ui_list_sortby_modified_time .filehost_file .filehost_file_metadata_modified_time {
+  text-shadow: 0px 0px 6px #0f0;
+  font-weight: bold;
+}

@@ -1,0 +1,42 @@
+{
+  "name":"filehost",
+  "classes":{
+    "FileModel":{
+      "table":"filehost.file",
+      "props":{
+        "usertype":      ["usertype", "varchar(20)", {"pk":true}],
+        "userid":        ["userid", "varchar(255)", {"pk":true}],
+        "dirname":       ["dirname", "varchar(255)", {"pk":true}],
+        "filename":      ["filename", "varchar(255)", {"pk":true}],
+        "variant":       ["variant", "varchar(50)", {"pk":true, "default": "original"}],
+        "filetype":      ["filetype", "varchar(255)"],
+        "filesize":      ["filesize", "integer"],
+        "checksum":      ["checksum", "varchar(255)"],
+        "permissions":   ["permissions", "integer", {"default":0}],
+        "metadata":      ["metadata", "text"],
+        "status":        ["status", "tinyint unsigned", {"default":0}],
+        "created_time":  ["created_time", "timestamp", {"defaultExpr":"CURRENT_TIMESTAMP"}],
+        "modified_time": ["modified_time", "timestamp"]
+      },
+      "associations":[
+        ["many-to-one", "DirectoryModel", {"key":"usertype,userid"}]
+      ]
+    },
+    "DirectoryModel":{
+      "table":"filehost.directory",
+      "props":{
+        "usertype":      ["usertype", "varchar(20)", {"pk":true}],
+        "userid":        ["userid", "varchar(255)", {"pk":true}],
+        "dirname":       ["dirname", "varchar(255)", {"pk":true}],
+        "permissions":   ["permissions", "integer", {"default": 0}],
+        "metadata":      ["metadata", "text"],
+        "created_time":  ["created_time", "timestamp", {"defaultExpr":"CURRENT_TIMESTAMP"}],
+        "modified_time": ["modified_time", "timestamp"]
+      },
+      "associations":[
+        ["one-to-many", "FileModel", {"key":"usertype,userid,dirname"}]
+      ]
+    }
+  }
+}
+

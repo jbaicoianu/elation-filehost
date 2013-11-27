@@ -1,0 +1,21 @@
+.filehost_view {
+  zoom: .8;
+}
+.filehost_view .filehost_filelist_commands {
+  position: fixed;
+  background: rgba(0,0,0,.5);
+  padding: .2em 10em .5em .5em;
+  z-index: 1000;
+  border-radius: 0 0 5px 0;
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+.filehost_view .filehost_filelist>.ui_list {
+  padding-top: 2.5em;
+}
+@media all and (max-device-width: 800px) {
+  .filehost_view {
+    zoom: .5;
+  }
+}
