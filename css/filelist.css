@@ -1,3 +1,4 @@
+/* highlight sorted-by parameter */
 .filehost_filelist .ui_list .filehost_file .filehost_file_info h2,
 .filehost_filelist .ui_list .filehost_file .filehost_file_metadata_filetype,
 .filehost_filelist .ui_list .filehost_file .filehost_file_metadata_filesize,
@@ -22,4 +23,16 @@
 .filehost_filelist .ui_list.ui_list_sortby_modified_time .filehost_file .filehost_file_metadata_modified_time {
   text-shadow: 0px 0px 6px #0f0;
   font-weight: bold;
+}
+/* end sort highlight */
+
+/* custom ui.list orientations */
+.filehost_filelist .ui_list.orientation_details>ul>li {
+  display: inline-block;
+}
+.filehost_filelist .ui_list.orientation_list>ul>li {
+  display: block;
+  width: auto;
+}
+.filehost_filelist .ui_list.orientation_slideshow {
 }
