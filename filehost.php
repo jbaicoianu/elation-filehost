@@ -18,7 +18,7 @@ class Component_filehost extends Component {
 
   public function init() {
     OrmManager::LoadModel("filehost");
-    $this->rootdir = ConfigManager::get("filehost.rootdir", "tmp/filehost");
+    $this->rootdir = ConfigManager::get("filehost.rootdir", "/data/filehost");
   }
   /* utility functions */
   public function getImagePath($user, $dirname=null, $filename=null) {
@@ -119,21 +119,25 @@ class Component_filehost extends Component {
       }
     } else {
       $rootdir = $this->getImagePath($user);
-      $dh = opendir($rootdir);
       $directories = array();
-      while (($dirname = readdir($dh)) !== false) {
-        if ($dirname[0] == '.') continue; // skip hidden files
+      if (file_exists($rootdir)) {
+        $dh = opendir($rootdir);
+        if ($dh) {
+          while (($dirname = readdir($dh)) !== false) {
+            if ($dirname[0] == '.') continue; // skip hidden files
 
-        $stat = stat($rootdir . "/" . $dirname);
+            $stat = stat($rootdir . "/" . $dirname);
 
-        $newdir = new DirectoryModel();
-        $newdir->usertype = $user->usertype;
-        $newdir->userid = $user->userid;
-        $newdir->dirname = $dirname;
-        $newdir->modified_time = mysql_timestamp($stat["mtime"]);
-        $newdir->created_time = mysql_timestamp($stat["ctime"]);
-        
-        $directories[$newdir->dirname] = $newdir;
+            $newdir = new DirectoryModel();
+            $newdir->usertype = $user->usertype;
+            $newdir->userid = $user->userid;
+            $newdir->dirname = $dirname;
+            $newdir->modified_time = mysql_timestamp($stat["mtime"]);
+            $newdir->created_time = mysql_timestamp($stat["ctime"]);
+            
+            $directories[$newdir->dirname] = $newdir;
+          }
+        }
       }
     }
     if (!empty($directories)) {
@@ -317,8 +321,8 @@ class Component_filehost extends Component {
         $missing["directories"]++;
       }
 
-      $fsfiles = $this->getFiles($user, $dirname, array("usefilesystem" => false));
-      $dbfiles = $this->getFiles($user, $dirname, array("usefilesystem" => true));
+      $fsfiles = $this->getFiles($user, $dirname, array("usefilesystem" => true));
+      $dbfiles = $this->getFiles($user, $dirname, array("usefilesystem" => false));
       foreach ($fsfiles as $filename=>$file) {
         if (!isset($dbfiles[$filename])) {
           // Missing file, write to db
@@ -345,11 +349,15 @@ class Component_filehost extends Component {
   }
   public function controller_view($args) {
     $user = (!empty($args["user"]) ? User::get("default", $args["user"]) : User::current());
+    $self = User::current();
 
     $vars["dirname"] = $args["dirname"];
     //$vars["directories"] = $this->getDirectories($user);
     $directory = $this->getDirectory($user, $vars["dirname"]);
-    if ($directory->permissions & $this->permissions["public"]) {
+    if ($user->equals($self) ||                                 // always allowed to view your own directories
+        $directory->permissions & $this->permissions["public"]) // directory is public, anyone can view it
+        // TODO - add "group" permissions, access tokens, etc
+    {
       $vars["directory"] = $directory;
       $fileargs = array("sortby" => "filename", "sortreverse" => false);
       if (!empty($vars["directory"]->metadata)) {
