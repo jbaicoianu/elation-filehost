@@ -2,18 +2,22 @@ elation.component.add('filehost.directorytree', function() {
   this.init = function() {
     elation.html.addclass(this.container, 'filehost_directorytree');
     this.dirname = this.args.dirname || 'uploads';
-    if (this.args.directories) {
-      this.directories = this.getDirectoryTree(this.args.directories);
-      this.treeview = elation.ui.treeview(null, elation.html.create({append: this.container}), {items: this.directories, attrs: {name: 'dirname', label: 'dirname'}, selected: this.dirname});
-      elation.events.add(this.treeview, "ui_treeview_select", elation.bind(this, function(ev) {
-        this.setDirectory(ev.data.value.dirname);
-      }));
-    }
-    this.actions = elation.ui.buttonbar(null, elation.html.create({append: this.container}), {
-      buttons: {
-        'create': {label: 'create', events: { click: elation.bind(this, this.showCreateDirectoryDialog) } }
+    if (!elation.user.loggedin) {
+      this.userauth = elation.user.auth(null, elation.html.create({append: this.container}), {});
+    } else {
+      if (this.args.directories) {
+        this.directories = this.getDirectoryTree(this.args.directories);
+        this.treeview = elation.ui.treeview(null, elation.html.create({append: this.container}), {items: this.directories, attrs: {name: 'dirname', label: 'dirname'}, selected: this.dirname});
+        elation.events.add(this.treeview, "ui_treeview_select", elation.bind(this, function(ev) {
+          this.setDirectory(ev.data.value.dirname);
+        }));
       }
-    });
+      this.actions = elation.ui.buttonbar(null, elation.html.create({append: this.container}), {
+        buttons: {
+          'create': {label: 'create', events: { click: elation.bind(this, this.showCreateDirectoryDialog) } }
+        }
+      });
+    }
   }
   this.getDirectoryTree = function(directories) {
     // TODO - parse full directory path into tree by splitting on /

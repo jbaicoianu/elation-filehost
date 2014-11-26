@@ -8,7 +8,6 @@ elation.component.add('filehost.filelist', function() {
       if (this.directory.metadata.sortby) sortargs.sortby = this.directory.metadata.sortby;
       if (this.directory.metadata.sortreverse) sortargs.sortreverse = this.directory.metadata.sortreverse;
     }
-console.log('sort', sortargs);
 
     if (this.args.files) {
       this.header = elation.ui.panel(null, elation.html.create({append: this.container}), {orientation: 'horizontal', classname: 'filehost_filelist_commands'});

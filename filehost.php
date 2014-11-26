@@ -210,9 +210,11 @@ class Component_filehost extends Component {
     $vars = array();
     $user = User::current();
 
+/*
     if (!$user->loggedin) {
       throw new ElationUserAuthException();
     }
+*/
 
     $vars["dirname"] = any($args["dirname"], "uploads");
     $vars["directories"] = $this->getDirectories($user);

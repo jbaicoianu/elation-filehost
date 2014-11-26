@@ -215,7 +215,7 @@ elation.component.add("filehost.file", function() {
 elation.component.add('filehost.file_metadata', function() {
   this.init = function() {
     this.file = this.args.file;
-    console.log(this.file);
+    //console.log(this.file);
     //this.container.innerHTML = this.prettySize(this.file.filesize) + '<br>' + this.file.modified_time;
     this.list = elation.ui.list(null, elation.html.create({append: this.container}), {
       items: [

@@ -16,16 +16,8 @@
   width: 8em;
   padding-top: .5em;
 }
-.filehost_upload button {
-  display: none;
-  margin: 0 auto; 
-  padding: .5em;
-}
 .filehost_upload.state_enabled input[type=file] {
   display: none;
-}
-.filehost_upload.state_enabled button {
-  display: inline-block;
 }
 
 .filehost_upload .filehost_filelist {

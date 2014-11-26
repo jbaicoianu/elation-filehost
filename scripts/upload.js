@@ -38,6 +38,12 @@ elation.component.add("filehost.upload", function() {
     }));
 
     this.reset();
+
+
+    elation.events.add(elation.user, 'user_login', function(ev) {
+      console.log('logged in');
+      document.location.reload();
+    });
   }
   this.reset = function(keepprogress) {
     var upload = this.container['upload'];
